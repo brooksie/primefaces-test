@@ -12,12 +12,17 @@
     <h:body>
 
         <h1>Hello from Facelets</h1>
-        
+
         <h:form>
+            <p:growl globalOnly="false" showDetail="true" />
             <p:pickList value="#{pickListBean.tags}" var="tag"
                         itemLabel="#{tag.name}" itemValue="#{tag}" converter="myTagConverter" >
             </p:pickList>
-            <p:commandButton value="Submit" action="#{pickListBean.submitAction}" />
+            <p:commandButton value="Submit" action="#{pickListBean.submitAction}" update="@form"/>
+        </h:form>
+        <h:form id="btn" >
+            <p:commandButton value="Open Dialog" action="#{pickListBean.openDialogAction}" 
+                             immediate="true"/>
         </h:form>
 
     </h:body>
