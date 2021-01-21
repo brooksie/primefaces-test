@@ -11,9 +11,13 @@
     </h:head>
     <h:body>
 
-        <h1>#{testView.string}</h1>
-        <h:form id="frmTest">
-            
+        <h1>Hello from Facelets</h1>
+        
+        <h:form>
+            <p:pickList value="#{pickListBean.tags}" var="tag"
+                        itemLabel="#{tag.name}" itemValue="#{tag}" converter="myTagConverter" >
+            </p:pickList>
+            <p:commandButton value="Submit" action="#{pickListBean.submitAction}" />
         </h:form>
 
     </h:body>
