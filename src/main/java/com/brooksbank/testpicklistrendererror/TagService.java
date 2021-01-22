@@ -8,15 +8,16 @@ package com.brooksbank.testpicklistrendererror;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 /**
  *
  * @author sjbro
  */
-@ApplicationScoped
-public class TagService {
+@Stateless
+public class TagService implements Serializable {
 
     private static final String[] TAG_NAMES = {
         "Java", "PrimeFaces", "JSF", "JPA", "Hibernate", "JMS", "CDI"};
