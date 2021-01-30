@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/appTemplate.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        Auth App
+    </ui:define>
+
+    <ui:define name="content">
+        <h1>Auth App</h1>
+        <p>Logged-in as ???</p>
+
+        <h2>do something else</h2>
+        <h3>and again</h3>
+        <h4>and a 4th time</h4>
+        <h5>and a fifth</h5>
+        <p>This is plain text.</p>
+
+        <h:form>
+            <h:commandButton value="Pwd" action="/pages/user/passwordMaint" />
+
+            <br/>
+            <h:messages showDetail="true" showSummary="true" />
+        </h:form>
+
+
+    </ui:define>
+
+</ui:composition>
