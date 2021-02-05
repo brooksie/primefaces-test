@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>#{dialogBean.mode} a Tag</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="tagDlgFrm">
+            <p:growl showDetail="true" globalOnly="true" />
+            <p:focus />
+
+            <p:panelGrid columns="3" rendered="#{dialogBean.mode eq 'Add' 
+                                                 or dialogBean.mode eq 'Edit' }" >
+
+                <p:outputLabel for="@next" value="Id:" 
+                               rendered="#{dialogBean.mode ne 'Add'}" />
+                <p:inputText value="#{tagEntityBean.id}" readonly="true"
+                              rendered="#{dialogBean.mode ne 'Add'}" />
+                <p:message for="@previous" 
+                           rendered="#{dialogBean.mode ne 'Add'}" />
+
+
+                <p:outputLabel for="@next" value="Name:" />
+                <p:inputText id="name" value="#{tagEntityBean.name}" 
+                             validator="#{dialogBean.validateTagName}" >
+                    <f:validateRegex pattern="[A-Za-z0-9][A-Za-z \-\._0-9]*" />
+                    <p:ajax update="@this @next" />
+                </p:inputText>
+                <p:message for="@previous" />
+
+            </p:panelGrid>
+
+            <p:commandButton icon="pi pi-check" value="Save" title="add the new tag" 
+                             action="#{dialogBean.addTag}"
+                             update="@form"
+                             rendered="#{dialogBean.mode eq 'Add'}"/>
+
+            <p:commandButton icon="pi pi-check" value="Save" title="edit the tag" 
+                             action="#{dialogBean.editTag}"
+                             update="@form"
+                             rendered="#{dialogBean.mode eq 'Edit'}"/>
+
+
+            <p:panelGrid columns="2" rendered="#{dialogBean.mode eq 'Delete' 
+                                                 or dialogBean.mode eq 'View'}">
+
+                <h:outputText value="Id:" />
+                #{tagEntityBean.id}
+                <h:outputText value="Name:" />
+                #{tagEntityBean.name}
+
+            </p:panelGrid>
+
+            <p:commandButton icon="pi pi-trash" value="Delete" title="delete the tag" 
+                             rendered="#{dialogBean.mode eq 'Delete'}"
+                             action="#{dialogBean.deleteTag}"
+                             update="@form" />
+
+
+        </h:form>
+    </h:body>
+</html>
+
