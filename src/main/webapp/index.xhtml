@@ -9,62 +9,16 @@
     </h:head>
     <h:body>
         <h1>Tag Maintenance</h1>
-
-        <h:form id="listFrm">
-            <p:growl id="growl" showDetail="true" globalOnly="true" />
-            <p:focus />
-
-            <p:dataTable id="tagTbl" widgetVar="tagTblWidget"
-                         value="#{listBean.tagCatalog}" var="tag"
-                         filteredValue="#{listBean.filteredTagCatalog}" >
-
-                <f:facet name="header">List of Tags</f:facet>
-
-                <p:column style="width:100px;text-align: center; padding-left: 1px; padding-right: 1px;"
-                          >
-                    <h:panelGroup>
-                        <p:commandButton action="#{listBean.editAction}"
-                                         icon="pi pi-pencil" title="edit the tag" >
-                            <f:setPropertyActionListener value="#{tag}" target="#{listBean.selectedTag}" />
-                            <p:ajax event="dialogReturn" listener="#{listBean.editDialogReturned}"
-                                    update="@form"
-                                    oncomplete="PF('tagTblWidget').filter();" 
-                                    />
-                        </p:commandButton>
-                        <p:commandButton action="#{listBean.deleteAction}"
-                                         icon="pi pi-times" title="delete the tag" >
-                            <f:setPropertyActionListener value="#{tag}" target="#{listBean.selectedTag}" />
-                            <p:ajax event="dialogReturn" listener="#{listBean.deleteDialogReturned}"
-                                    update="@form"
-                                    oncomplete="PF('tagTblWidget').filter();"
-                                    />
-                        </p:commandButton>
-                    </h:panelGroup>
-                </p:column>
-
-                <p:column headerText="Id"  sortBy="#{tag.id}"
-                          filterBy="#{tag.id}" filterMatchMode="contains" >
-                        #{tag.id}
-                </p:column>
-
-                <p:column headerText="Tag"  sortBy="#{tag.name}"
-                          filterBy="#{tag.name}" filterMatchMode="contains" >
-                    <p:commandLink action="#{listBean.viewAction}" title="view the tag details">
-                        #{tag.name}
-                        <f:setPropertyActionListener value="#{tag}" target="#{listBean.selectedTag}" />
-                    </p:commandLink>
-                </p:column>
-
-            </p:dataTable>
-
-            <p:commandButton icon="pi pi-plus" value="New" title="create the new tag"
-                             action="#{listBean.addAction}" >
-                <p:ajax event="dialogReturn" listener="#{listBean.addDialogReturned}"
-                        update="@form"
-                        oncomplete="PF('tagTblWidget').filter();"
-                        />
-            </p:commandButton>
-
+        
+        <h:form >
+            
+            <br/><br/>
+            <p:commandButton value="tag list" immediate="true"
+                             action="tagList" />
+            <br/><br/>
+            <p:commandButton value="user Roles" immediate="true"
+                             action="userRoleList" />
         </h:form>
     </h:body>
 </html>
+

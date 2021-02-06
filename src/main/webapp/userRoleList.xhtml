@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>UserRole Maintenance</title>
+    </h:head>
+    <h:body>
+
+        <h:form id="frm1" title="Option selection" >
+            <p:outputLabel for="@next" value="Option " /> 
+            <p:selectOneButton value="#{userRoleListBean.byOption}" required="true">
+                <f:selectItem itemLabel="By User" itemValue="U"/>
+                <f:selectItem itemLabel="By Role" itemValue="R"/>
+                <p:ajax listener="#{userRoleListBean.byOptionChanged}"
+                        update=":frm2a :frm2b :frm3 :frm3" />
+            </p:selectOneButton>
+            <p:message for="@previous" />
+        </h:form>
+
+        <h:form id="frm2a" title="User selection" >
+            <h:panelGroup rendered="#{userRoleListBean.byOption eq 'U'}">
+                <p:outputLabel for="@next" value="Select User " /> 
+                <p:selectOneMenu value="#{userRoleListBean.selectedUser}" 
+                                 converter="omnifaces.SelectItemsConverter" 
+                                 filter="true" filterMatchMode="contains">
+                    <f:selectItem noSelectionOption="true" itemLabel="Select one.." itemValue="#{null}" />
+                    <f:selectItems value="#{userRoleListBean.userCatalog}" var="user"
+                                   itemLabel="#{user.name}" itemValue="#{user}" />
+                    <p:ajax listener="#{userRoleListBean.selectedUserChanged}"
+                            update=":frm3" />
+                </p:selectOneMenu>
+                <p:message for="@previous" />
+            </h:panelGroup>
+        </h:form>
+
+        <h:form id="frm2b" title="Role selection" >
+            <h:panelGroup rendered="#{userRoleListBean.byOption eq 'R'}">
+                <p:outputLabel for="@next" value="Select role" />
+                <p:selectOneMenu value="#{userRoleListBean.selectedRole}" 
+                                 converter="omnifaces.SelectItemsConverter"
+                                 filter="true" filterMatchMode="contains">
+                    <f:selectItem noSelectionOption="true" itemLabel="Select one.." itemValue="#{null}" />
+                    <f:selectItems value="#{userRoleListBean.roleCatalog}" var="role"
+                                   itemLabel="#{role.name}" itemValue="#{role}" />
+                    <p:ajax listener="#{userRoleListBean.selectedRoleChanged}"
+                            update=":frm3" />
+                </p:selectOneMenu>
+                <p:message for="@previous" />
+            </h:panelGroup>
+        </h:form>
+
+
+
+        <h:form id="frm3" >
+            <p:growl globalOnly="true" />
+            <p:focus />
+
+            <h:panelGroup rendered="#{(userRoleListBean.byOption eq 'U' and !empty userRoleListBean.selectedUser)
+                                      or (userRoleListBean.byOption eq 'R' and !empty userRoleListBean.selectedRole)}" >
+
+                <p:dataTable id="dTbl" value="#{userRoleListBean.userRoleList}" var="ur" sortMode="multiple"
+                             emptyMessage="no data found" widgetVar="tblWidget"
+                             filteredValue="#{userRoleListBean.userRoleFilteredList}">
+
+                    <f:facet name="header" >#{userRoleListBean.dataTableTitle}</f:facet>
+
+                    <p:column headerText="User" rendered="#{userRoleListBean.usernameColumnRendered}"
+                              sortBy="#{ur.user.name}" 
+                              filterBy="#{ur.user.name}" filterMatchMode="contains"
+                              >
+                        <h:outputText value="#{ur.user.name}" />
+                    </p:column>
+
+                    <p:column headerText="Role" rendered="#{userRoleListBean.rolenameColumnRendered}"
+                              sortBy="#{ur.role.name}" 
+                              filterBy="#{ur.role.name}"  filterMatchMode="contains"
+                              >
+                        <h:outputText value="#{ur.role.name}" />
+                    </p:column>
+
+                    <p:column width="40px">
+                        <p:commandButton icon="pi pi-times"
+                                         action="#{userRoleListBean.deleteUserRoleAction}" 
+                                         >
+                            <f:setPropertyActionListener value="#{ur}" target="#{userRoleListBean.selectedUserRole}" />
+                            <p:ajax event="dialogReturn" listener="#{userRoleListBean.onDeleteReturn}" 
+                                    update="@form" 
+                                    oncomplete="PF('tblWidget').filter();" 
+                                    />
+                        </p:commandButton>
+                    </p:column>
+
+                </p:dataTable>
+                <br/>
+                <p:commandButton value="Add" icon="pi pi-plus" 
+                                 action="#{userRoleListBean.addUserRoleAction}"
+                                 >
+                    <p:ajax event="dialogReturn" listener="#{userRoleListBean.onAddReturn}"
+                            update="@form" 
+                            oncomplete="PF('tblWidget').filter();"
+                            />
+                </p:commandButton>
+
+            </h:panelGroup>
+
+        </h:form>
+        
+    </h:body>
+</html>
+

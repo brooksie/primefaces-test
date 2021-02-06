@@ -29,18 +29,18 @@ import org.primefaces.event.SelectEvent;
 public class ListBean implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(ListBean.class.getName());
-
+    
     @Inject
     private TagService tagService;
 
     private List<Tag> tagCatalog;
     private List<Tag> filteredTagCatalog = null;
     private Tag selectedTag = null;
-
+    
     /** Creates a new instance of ListBean */
     public ListBean() {
     }
-
+    
     @PostConstruct
     protected void init() {
         updateTagCatalog();
@@ -50,7 +50,7 @@ public class ListBean implements Serializable {
         tagCatalog = tagService.findAll();
         LOG.log(Level.INFO, "Catalog contains " + tagCatalog);
     }
-
+    
     // getters and setters
 
     public List<Tag> getTagCatalog() {
@@ -103,17 +103,14 @@ public class ListBean implements Serializable {
         }
         PrimeFaces.current().dialog().openDynamic("tagDialog", options, params);
     }
-
+    
     public void addDialogReturned(SelectEvent event) {
-        LOG.info("addDialogReturned() started...");
         updateTagCatalog();
     }
     public void editDialogReturned(SelectEvent event) {
-        LOG.info("editDialogReturned() started...");
         updateTagCatalog();
     }
     public void deleteDialogReturned(SelectEvent event) {
-        LOG.info("deleteDialogReturned() started...");
         updateTagCatalog();
     }
 
