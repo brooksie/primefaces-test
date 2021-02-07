@@ -14,14 +14,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author sjbro
  */
-@ApplicationScoped
+@SessionScoped
 public class UserRoleService implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(UserRoleService.class.getName());

@@ -17,33 +17,58 @@
 
                 <h3>For #{(userRoleDialogBean.byOption eq 'U' ? 'User: ' : 'Role: ') += userRoleDialogBean.optionName}</h3>
 
-                <h:panelGroup rendered="#{userRoleDialogBean.byOption eq 'U'}" >
-                    <p:outputLabel for="@next" value="#{userRoleDialogBean.choiceLabel}" />
-                    <p:selectOneMenu value="#{userRoleDialogBean.selectedRoleChoice}"
-                                     filter="true" filterMatchMode="contains" required="true"
-                                     converter="omnifaces.SelectItemsConverter">
-                        <f:selectItem noSelectionOption="true" itemLabel="Select one..." itemValue="#{null}" />
-                        <f:selectItems value="#{userRoleDialogBean.roleChoices}" var="role"
-                                       itemLabel="#{role.name}"
-                                       itemValue="#{role}" />
-                        <p:ajax update="@this @next"/>
-                    </p:selectOneMenu>
-                    <p:message for="@previous" />
-                </h:panelGroup>
+                <p:panelGrid columns="3" styleClass="ui-noborder">
+                    <f:facet name="header" >Membership</f:facet>
+                    <h:outputText value="User" style="text-decoration: underline;font-weight: bold;"/>
+                    <h:outputText value=" " />
+                    <h:outputText value="Role" style="text-decoration: underline;font-weight: bold;"/>
 
-                <h:panelGroup rendered="#{userRoleDialogBean.byOption eq 'R'}" >
-                    <p:outputLabel for="@next" value="#{userRoleDialogBean.choiceLabel}" />
-                    <p:selectOneMenu value="#{userRoleDialogBean.selectedUserChoice}"
-                                     filter="true" filterMatchMode="contains" required="true"
-                                     converter="omnifaces.SelectItemsConverter">
-                        <f:selectItem noSelectionOption="true" itemLabel="Select one..." itemValue="#{null}" />
-                        <f:selectItems value="#{userRoleDialogBean.userChoices}" var="user"
-                                       itemLabel="#{user.name}" 
-                                       itemValue="#{user}" />
-                        <p:ajax update="@this @next"/>
-                    </p:selectOneMenu>
-                    <p:message for="@previous" />
-                </h:panelGroup>
+                    <h:panelGroup>
+                        
+                        <h:outputText rendered="#{userRoleDialogBean.byOption eq 'U'}" 
+                                      value="#{userRoleDialogBean.optionName}" />
+                        
+                        <h:panelGroup rendered="#{userRoleDialogBean.byOption ne 'U'}" >
+                            <p:selectOneMenu value="#{userRoleDialogBean.selectedUserChoice}"
+                                             filter="true" filterMatchMode="contains" required="true"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem noSelectionOption="true" itemLabel="Select one..." itemValue="#{null}" />
+                                <f:selectItems value="#{userRoleDialogBean.userChoices}" var="user"
+                                               itemLabel="#{user.name}" 
+                                               itemValue="#{user}" />
+                                <p:ajax update="@this @next"/>
+                            </p:selectOneMenu>
+                            <p:message for="@previous" />
+                        </h:panelGroup>
+                        
+                    </h:panelGroup>
+
+                    <h:outputText value=" &lt;---&gt; "/>
+
+                    <h:panelGroup>
+                        <h:outputText rendered="#{userRoleDialogBean.byOption eq 'R'}" 
+                                      value="#{userRoleDialogBean.optionName}" />
+                        
+                        <h:panelGroup rendered="#{userRoleDialogBean.byOption ne 'R'}" >
+
+                            <p:selectOneMenu value="#{userRoleDialogBean.selectedRoleChoice}"
+                                             filter="true" filterMatchMode="contains" required="true"
+                                             converter="omnifaces.SelectItemsConverter">
+                                <f:selectItem noSelectionOption="true" itemLabel="Select one..." itemValue="#{null}" />
+                                <f:selectItems value="#{userRoleDialogBean.roleChoices}" var="role"
+                                               itemLabel="#{role.name}"
+                                               itemValue="#{role}" />
+                                <p:ajax update="@this @next"/>
+                            </p:selectOneMenu>
+                            <p:message for="@previous" />
+
+                      
+                        </h:panelGroup>
+                    </h:panelGroup>
+
+
+                </p:panelGrid>
+
 
             </h:panelGroup>
 

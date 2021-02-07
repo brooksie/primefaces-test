@@ -9,8 +9,8 @@
     </h:head>
     <h:body>
 
-        <h1>With filter()</h1>
-        
+        <h1>Without filter()</h1>
+
         <h:form id="frm1" title="Option selection" >
             <p:outputLabel for="@next" value="Option " />
             <p:selectOneButton value="#{userRoleListBean.byOption}" required="true">
@@ -90,7 +90,7 @@
                             <f:setPropertyActionListener value="#{ur}" target="#{userRoleListBean.selectedUserRole}" />
                             <p:ajax event="dialogReturn" listener="#{userRoleListBean.onDeleteReturn}"
                                     update="@form"
-                                    oncomplete="PF('tblWidget').filter();"
+                                    
                                     />
                         </p:commandButton>
                     </p:column>
@@ -102,7 +102,7 @@
                                  >
                     <p:ajax event="dialogReturn" listener="#{userRoleListBean.onAddReturn}"
                             update="@form"
-                            oncomplete="PF('tblWidget').filter();"
+
                             />
                 </p:commandButton>
 

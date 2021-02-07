@@ -82,11 +82,11 @@ public class UserRoleListBean implements Serializable {
         usernameColumnRendered = false;
         groupnameColumnRendered = false;
         if ("U".equals(byOption)) {
-            dataTableTitle = "Assigned Role";
+            dataTableTitle = "Assigned Roles for this User";
             groupnameColumnRendered = true;
             selectedUserChanged();
         } else if ("R".equals(byOption)) {
-            dataTableTitle = "Assigned User";
+            dataTableTitle = "Assigned Users for this Role";
             usernameColumnRendered = true;
             selectedRoleChanged();
         }
